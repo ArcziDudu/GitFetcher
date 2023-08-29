@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 public interface GithubFetcherDao {
-    Mono<List<Repository>> findRepositoryInfoByUsername(String username);
+    Mono<List<Repository>> findRepositoryInfoByUsername(String username, String authorization);
 }

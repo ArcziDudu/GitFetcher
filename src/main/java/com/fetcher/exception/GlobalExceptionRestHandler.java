@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.webjars.NotFoundException;
 
-import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -28,8 +26,19 @@ public class GlobalExceptionRestHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity
                 .status(ex.getStatusCode())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(ErrorResponse.of(ex.getStatusCode().value(), "user ["+username+"] not found"));
+                .body(ErrorResponse.of(ex.getStatusCode().value(), "user [" + username + "] not found"));
     }
+
+    @ExceptionHandler(WebClientResponseException.Unauthorized.class)
+    protected ResponseEntity<ErrorResponse> handleUnauthorized(WebClientResponseException.Unauthorized ex) {
+        log.error("Unauthorized from external api");
+        return ResponseEntity
+                .status((HttpStatus.UNAUTHORIZED))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(ErrorResponse.of(ex.getStatusCode().value()
+                        , "Unauthorized from external api. Please contact with project owner: artur.augustyn26@gmail.com"));
+    }
+
     @ExceptionHandler(badHeaderException.class)
     protected ResponseEntity<ErrorResponse> handleBadHeader(badHeaderException ex) {
         log.error("Bad header exception occurred: {}", ex.getMessage());
@@ -38,8 +47,9 @@ public class GlobalExceptionRestHandler extends ResponseEntityExceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
     }
+
     private String extractUsernameFromPath(String path) {
-        int startIdx = path.indexOf("/users/") + "/users/".length();
+        int startIdx = path.indexOf("/users/") + "/users/" .length();
         int endIdx = path.indexOf("/repos", startIdx);
         if (startIdx >= 0 && endIdx >= 0) {
             return path.substring(startIdx, endIdx);

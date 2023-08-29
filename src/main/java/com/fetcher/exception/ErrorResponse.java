@@ -8,7 +8,7 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor(staticName = "of")
 public class ErrorResponse {
-   int status;
-   String message;
+    int status;
+    String message;
 
 }
