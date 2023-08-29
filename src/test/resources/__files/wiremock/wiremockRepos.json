@@ -1,0 +1,27 @@
+{
+    "name": "my-repo",
+    "html_url": "https://github.com/arcziZajavka/my-repo",
+    "description": "This is a sample repository",
+    "fork": false,
+    "owner": {
+      "login": "arcziZajavka",
+      "avatar_url": "https://avatars.githubusercontent.com/arcziZajavka"
+    },
+    "branches": [
+      {
+        "name": "main",
+        "commit": {
+          "sha": "abcdef1234567890",
+          "url": "https://github.com/myusername/my-repo/commit/abcdef1234567890"
+        }
+      },
+      {
+        "name": "feature-branch",
+        "commit": {
+          "sha": "1234567890abcdef",
+          "url": "https://github.com/myusername/my-repo/commit/1234567890abcdef"
+        }
+      }
+    ]
+  }
+
