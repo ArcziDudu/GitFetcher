@@ -1,14 +1,13 @@
 package com.fetcher.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 
-@Value
-@Builder
+@Data
 @AllArgsConstructor(staticName = "of")
 public class ErrorResponse {
     int status;
+
     String message;
 
 }

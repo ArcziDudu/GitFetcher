@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class WiremockRestAssuredConfig
+public abstract class WiremockConfig
         extends AbstractIT {
 
     protected static WireMockServer wireMockServer;
