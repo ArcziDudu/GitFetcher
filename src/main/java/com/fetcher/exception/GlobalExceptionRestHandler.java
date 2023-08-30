@@ -24,7 +24,7 @@ public class GlobalExceptionRestHandler extends ResponseEntityExceptionHandler {
         String username = extractUsernameFromPath(Objects.requireNonNull(ex.getRequest()).getURI().getPath());
         log.error("User [{}] not exists in GitHub", username);
         return ResponseEntity
-                .status(ex.getStatusCode())
+                .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(ErrorResponse.of(ex.getStatusCode().value(), "user [" + username + "] not found"));
     }
@@ -40,12 +40,12 @@ public class GlobalExceptionRestHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(badHeaderException.class)
-    protected ResponseEntity<ErrorResponse> handleBadHeader(badHeaderException ex) {
+    static ResponseEntity<ErrorResponse> handleBadHeader(badHeaderException ex) {
         log.error("Bad header exception occurred: {}", ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+                .body(ErrorResponse.of(HttpStatus.NOT_ACCEPTABLE.value(), ex.getMessage()));
     }
 
     private String extractUsernameFromPath(String path) {

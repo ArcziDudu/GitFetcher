@@ -19,7 +19,6 @@ public class GithubRestController {
     private final GitHubRepoFetcherService fetcher;
 
     @GetMapping(value = API_GITHUB_REPOS)
-
     public ResponseEntity<Mono<List<Repository>>> getRepositories(
             @PathVariable String username,
             @RequestHeader(value = "Authorization") String authorization,
